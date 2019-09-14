@@ -4,6 +4,8 @@ import Home from './views/Home.vue'
 import Member from './views/Member'
 import Shopcar from './views/Shopcar'
 import Search from './views/Search'
+import NewsList from './views/news/NewsList'
+import NewsInfo from './views/news/NewsInfo'
 
 Vue.use(Router)
 
@@ -40,6 +42,18 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: Search
+    }
+    ,
+    {
+      path: '/home/newslist',
+      name: 'newslist',
+      component: NewsList
+    }
+    ,
+    {
+      path: '/home/newsinfo/:id',
+      name: 'newsinfo',
+      component: NewsInfo
     }
   ],
   linkActiveClass:'mui-active'

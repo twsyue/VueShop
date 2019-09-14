@@ -5,10 +5,14 @@
         </mt-swipe>
 
         <ul class="mui-table-view mui-grid-view mui-grid-9">
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"><a href="#">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <router-link to="/home/newslist">
+                    <img src="../assets/menu1.png">
+                    <div class="mui-media-body">新闻资讯</div>
+                </router-link>
+
 <!--                <span class="mui-icon mui-icon-home"></span>-->
-                <img src="../assets/menu1.png">
-                <div class="mui-media-body">新闻资讯</div></a></li>
+            </li>
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"><a href="#">
                 <img src="../assets/menu2.png">
                 <div class="mui-media-body">图片分享</div></a></li>
@@ -30,7 +34,7 @@
 </template>
 
 <script>
-    import { Toast } from 'mint-ui';
+    import { Toast  } from 'mint-ui';
     export default {
         name: 'home',
         components: {},
@@ -44,11 +48,12 @@
         },
         methods: {
             getLunbo(){
-                this.$axios.get('http://www.liulongbin.top:3005/api/getlunbo').then(result =>{
-                    if(result.data.status === 0){
-                        //console.log('ok')
-                        this.lunnotuList = result.data.message;
-                        Toast("加载轮播图OK");
+                this.axios.get('/api/getlunbo').then(response =>{
+                    if(response.data.status === 0){
+                        this.lunnotuList = response.data.message;
+                        //Toast("加载轮播图OK");
+                    }else {
+                        Toast("加载轮播图失败");
                     }
                 })
 

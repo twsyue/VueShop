@@ -37,10 +37,10 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
         color: #2c3e50;
         background: #fff;
-        margin-top: 40px;
+        padding-top: 40px;
+        padding-bottom: 50px;
 
         .app-container {
             overflow-x: hidden;
