@@ -1,24 +1,27 @@
 <template>
     <div class="home">
-        <mt-swipe :auto="4000">
-            <mt-swipe-item  v-for="item in lunnotuList" :key="item.id"><img :src="item.img"></mt-swipe-item>
-        </mt-swipe>
+
+        <swiper :lunbotuList="lunbotuList" :isfull="true"></swiper>
 
         <ul class="mui-table-view mui-grid-view mui-grid-9">
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
                 <router-link to="/home/newslist">
                     <img src="../assets/menu1.png">
-                    <div class="mui-media-body">新闻资讯</div>
+                    <div class="mui-media-body">资讯头条</div>
                 </router-link>
-
-<!--                <span class="mui-icon mui-icon-home"></span>-->
             </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"><a href="#">
-                <img src="../assets/menu2.png">
-                <div class="mui-media-body">图片分享</div></a></li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"><a href="#">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <router-link to="/home/photolist">
+                    <img src="../assets/menu2.png">
+                    <div class="mui-media-body">产品秀</div>
+                </router-link>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <router-link to="/home/goodslist">
                 <img src="../assets/menu3.png">
-                <div class="mui-media-body">商品购买</div></a></li>
+                <div class="mui-media-body">商品购买</div>
+                </router-link>
+            </li>
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"><a href="#">
                 <img src="../assets/menu4.png">
                 <div class="mui-media-body">留言反馈</div></a></li>
@@ -34,13 +37,14 @@
 </template>
 
 <script>
+    import swiper from "../components/swiper";
     import { Toast  } from 'mint-ui';
     export default {
         name: 'home',
-        components: {},
+        components: {swiper},
         data() {
             return {
-                lunnotuList:[]
+                lunbotuList:[]
             }
         },
         created(){
@@ -48,10 +52,9 @@
         },
         methods: {
             getLunbo(){
-                this.axios.get('/api/getlunbo').then(response =>{
+                this.axios.get('api/getlunbo').then(response =>{
                     if(response.data.status === 0){
-                        this.lunnotuList = response.data.message;
-                        //Toast("加载轮播图OK");
+                        this.lunbotuList = response.data.message;
                     }else {
                         Toast("加载轮播图失败");
                     }
@@ -65,24 +68,10 @@
 <style lang="scss" scoped>
     .home {
         .mint-swipe {
-            height: 220px;
-
+            height: 200px;
             .mint-swipe-item {
-                &:nth-child(1) {
-                    background: #6d6d72;
-                }
-                &:nth-child(2) {
-                    background: #8a6de9;
-                }
-                &:nth-child(3) {
-                    background: #f0ad4e;
-                }
-                &:nth-child(4) {
-                    background: #2ac845;
-                }
                 img{width: 100%;
                     height: 100%;}
-
             }
         }
         .mui-grid-view.mui-grid-9{
