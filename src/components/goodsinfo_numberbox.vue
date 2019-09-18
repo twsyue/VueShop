@@ -15,7 +15,7 @@
         },
         methods: {
             CountChange(){//文本框数据被修改的时候
-                this.$emit('Getcount',parseInt(this.$refs.numbox.value));
+                this.$emit('getcount',parseInt(this.$refs.numbox.value));
             }
         },
         props: [

@@ -9,7 +9,7 @@
             <span class="tab-label">会员</span>
         </router-link>
         <router-link to="/shopcar" class="tab-item">
-            <span class="tab-icon iconfont icon-gouwu"><span class="tab-badge">9</span></span>
+            <span class="tab-icon iconfont icon-gouwu"><span id="badge" class="tab-badge">9</span></span>
             <span class="tab-label">购物车</span>
         </router-link>
         <router-link to="/search" class="tab-item">
@@ -100,7 +100,7 @@
             line-height: 1;
             display: inline-block;
             padding: 3px 6px;
-            color: #333;
+            color: #fff;
             border-radius: 100px;
             background-color: #ff5053;
         }

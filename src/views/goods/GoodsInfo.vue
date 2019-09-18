@@ -11,13 +11,13 @@
                        市场价：<del>￥{{goodsinfo.market_price}}</del>&nbsp;&nbsp;销售价：<span class="now_price">￥{{goodsinfo.sell_price}}</span>
                    </p>
                     <p>
-                        购买数量：<numbox></numbox>
+                        购买数量：<numbox @getcount="getSelectCount" :max="goodsinfo.stock_quantity"></numbox>
                     </p>
 
 
                     <p class="gm">
                         <mt-button type="primary" size="small">立即购买</mt-button>
-                        <mt-button type="danger" size="small">加入购物车</mt-button>
+                        <mt-button type="danger" size="small" @click="addToShopCar()">加入购物车</mt-button>
                     </p>
                 </div>
             </div>
@@ -37,6 +37,14 @@
                 <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
             </div>
         </div>
+        <transition
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @after-enter="afterEnter"
+        >
+            <div class="ball"  v-show="ballFlag" ref="ball"></div>
+        </transition>
+
     </div>
 </template>
 
@@ -48,14 +56,17 @@
         data(){
             return{
                 id: this.$route.params.id,
+                selectCount: 1,
                 lunbotu:[],
-                goodsinfo:[]
+                goodsinfo:[],
+                ballFlag:false,
+                SelectCount:1
 
             }
         },
         created(){
             this.getLunbo();
-            this. getGoodsInfo()
+            this.getGoodsInfo()
         },
         components: {
             swiper,
@@ -85,7 +96,35 @@
             },
             goComment(id){
                 this.$router.push({ name: "goodscomment", params: { id } });
+            },
+            addToShopCar(){
+                this.ballFlag = !this.ballFlag
+            },
+            beforeEnter(el) {
+                el.style.transform = "translate(0,0)"
+            },
+            enter(el){
+                //获取小球在页面中位置
+                const ballpos = this.$refs.ball.getBoundingClientRect();
+                //获取徽标在页面中位置
+                const badgepos = document.getElementById('badge').getBoundingClientRect();
+
+                const xDist = badgepos.left - ballpos.left;
+                const yDist = badgepos.top - ballpos.top;
+                el.offsetWidth;
+                el.style.transform = `translate(${ xDist }px, ${ yDist }px)`;
+                el.style.transition = 'all 0.6s cubic-bezier(1,1,.79,.95)';
+
+                function done() {}
+                done();
+            },
+            afterEnter(){
+                this.ballFlag =! this.ballFlag
+            },
+            getSelectCount(count){
+                this.SelectCount = count;
             }
+
         }
     }
 </script>
@@ -106,6 +145,7 @@
         display: block;
         button{ margin-bottom: 10px; }
     }
+    .ball{ position:absolute; z-index:99 ; top:380px; left:146px;width: 20px;height: 20px; border-radius: 10px; background: #ff5053; opacity: 1}
 
 }
 </style>
