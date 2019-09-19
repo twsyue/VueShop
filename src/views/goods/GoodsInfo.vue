@@ -26,9 +26,9 @@
             <div class="mui-card-header">商品参数</div>
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
-                    <p>商品货号：{{goodsinfo.goods_no}}</p>
-                    <p>库存情况：{{goodsinfo.stock_quantity}}</p>
-                    <p>上架时间：{{goodsinfo.add_time | dateFormat}}</p>
+                    <p>商品货号：{{ goodsinfo.goods_no }}</p>
+                    <p>库存情况：{{ goodsinfo.stock_quantity }}</p>
+                    <p>上架时间：{{ goodsinfo.add_time | dateFormat }}</p>
                 </div>
             </div>
             <div class="mui-card-footer">
@@ -98,7 +98,15 @@
                 this.$router.push({ name: "goodscomment", params: { id } });
             },
             addToShopCar(){
-                this.ballFlag = !this.ballFlag
+                this.ballFlag = !this.ballFlag;
+                //拼接出要保存到 store 的商品信息
+                var goodsinfo = {
+                    id: this.id,
+                    count: this.selectCount,
+                    price: this.goodsinfo.sell_price,
+                    selected: true
+                };
+                this.$store.commit('AddToCar',goodsinfo)
             },
             beforeEnter(el) {
                 el.style.transform = "translate(0,0)"

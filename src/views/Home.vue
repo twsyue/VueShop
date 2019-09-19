@@ -28,9 +28,12 @@
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"><a href="#">
                 <img src="../assets/menu5.png">
                 <div class="mui-media-body">视频专区</div></a></li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"><a href="#">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <router-link to="/about">
                 <img src="../assets/menu6.png">
-                <div class="mui-media-body">联系我们</div></a></li>
+                <div class="mui-media-body">联系我们</div>
+                </router-link>
+            </li>
 
         </ul>
     </div>

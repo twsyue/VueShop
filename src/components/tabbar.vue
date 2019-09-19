@@ -9,7 +9,7 @@
             <span class="tab-label">会员</span>
         </router-link>
         <router-link to="/shopcar" class="tab-item">
-            <span class="tab-icon iconfont icon-gouwu"><span id="badge" class="tab-badge">9</span></span>
+            <span class="tab-icon iconfont icon-gouwu"><span id="badge" class="tab-badge">{{$store.getters.getAllCount}}</span></span>
             <span class="tab-label">购物车</span>
         </router-link>
         <router-link to="/search" class="tab-item">

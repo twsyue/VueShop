@@ -1,17 +1,30 @@
 <template>
   <div class="member">
-    <h1>This is an member page</h1>
+    <h3>会员中心</h3>
+    <mt-button type="primary" @click="openPicker">选择生日</mt-button>
+    <mt-datetime-picker
+            ref="picker"
+            type="date"
+            year-format="{value} 年"
+            month-format="{value} 月"
+            date-format="{value} 日">
+    </mt-datetime-picker>
   </div>
 </template>
 <script>
   export default {
     name: "member",
     data() {
-      return {}
+      return {
+      }
     },
     mounted() {},
     created() {},
-    methods: {},
+    methods: {
+      openPicker() {
+        this.$refs.picker.open();
+      }
+    },
     components: {}
   }
 

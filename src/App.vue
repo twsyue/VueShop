@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <mt-header fixed title="VD科技"></mt-header>
+    <mt-header fixed title="VD科技">
+      <span @click="goBack" slot="left" v-show="flag">
+        <mt-button icon="back">返回</mt-button>
+      </span>
+
+    </mt-header>
     <div class="app-container">
       <transition>
         <router-view/>
@@ -13,8 +18,31 @@
 <script>
   import Tabbar from "./components/tabbar";
   export default {
+    data(){
+      return{
+        flag: false
+      }
+    },
+    created(){
+      this.flag = this.$route.path ==='/home'? false :true;
+    },
     components: {
       Tabbar
+    },
+    methods:{
+      goBack(){
+        this.$router.go(-1);
+      }
+    },
+    watch:{
+      '$route.path':function (newVal) {
+        if(newVal === '/home'){
+          this.flag= false
+        }else {
+          this.flag= true
+        }
+        
+      }
     }
   };
 </script>

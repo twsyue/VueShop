@@ -28,6 +28,9 @@ Vue.use(VuePreview);
 
 //导入格式化时间的插件
 import moment from 'moment'
+
+import store from './store'
+
 Vue.filter('dateFormat',function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
   return moment(dataStr).format(pattern)
 });
@@ -36,5 +39,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

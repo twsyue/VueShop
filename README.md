@@ -8,6 +8,7 @@
 - webpack
 - vue-router
 - axios
+- Vuex
 - Mint移动端组件库
 - MUI 前端框架
 - Vue preview plugin

@@ -1,5 +1,8 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h3>关于VD科技</h3>
+    <div>
+
+    </div>
   </div>
 </template>
