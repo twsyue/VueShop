@@ -60,10 +60,10 @@
         }
 
         .subtitle {
-            font-size: 13px;
+            font-size: 12px;
             display: flex;
             justify-content: space-between;
-            color: #6d6d72;
+            color: #666;
             padding: 0 6px;
         }
 

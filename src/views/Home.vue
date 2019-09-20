@@ -40,13 +40,14 @@
                 </router-link>
             </van-grid-item>
         </van-grid>
-                </div>
+    </div>
 </template>
 
 <script>
     import swiper from "../components/swiper";
     import Vue from 'vue';
     import {Grid, GridItem, Toast} from 'vant';
+
     Vue.use(Grid).use(GridItem).use(Toast);
 
     export default {

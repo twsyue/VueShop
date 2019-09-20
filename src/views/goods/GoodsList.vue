@@ -70,8 +70,8 @@
             width: 49%;
             min-height: 293px;
             border-radius: 5px;
-            border: 1px solid #c7c7cc;
-            box-shadow: 0 0 8px #c7c7cc;
+            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
             margin-bottom: 7px;
 
             img {

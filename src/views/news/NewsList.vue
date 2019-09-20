@@ -56,18 +56,20 @@
             list-style: none;
             padding: 10px 5px;
             .newsitem {
-                border-bottom: 1px solid #c7c7cc;
+                border-bottom: 1px solid #efeff4;
                 display: flex;
                 justify-content: space-between;
-                padding:10px 5px;
+                padding:15px 5px;
                 background-color: #fff;
 
                 .imgcov {
-                    width: 60px;
+                    width: 90px;
                     height: 60px;
+                    border-radius: 5px;
+                    overflow: hidden;
 
                     img {
-                        width: 60px;
+                        width: 90px;
                         height: 60px;
                     }
                 }
@@ -78,10 +80,10 @@
                     flex-direction: column;
                     justify-content: space-between;
 
-                    h1{ font-size: 14px; color: #242424}
+                    h1{ font-size: 14px; margin: 0; color: #000; font-weight: normal}
                     .info {
                         font-size: 12px;
-                        color: #323232;
+                        color: #666;
                         display: flex;
                         justify-content: space-between;
                     }

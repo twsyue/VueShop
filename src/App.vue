@@ -56,7 +56,7 @@
         },
         created() {
             this.flag = this.$route.path === '/home' ? false : true;
-            this.isshopcar = this.$route.path === '/shopcar' ? false : true;
+            this.isshopcar = this.$route.path === '/shopcar' ? true : false;
         },
         components: {},
         methods: {
@@ -96,11 +96,14 @@
     };
 </script>
 <style lang="scss">
+    html,body,#app{
+        height: 100%;
+        width: 100%;
+    }
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        height: 100%;
     }
 
     .header {
@@ -109,7 +112,7 @@
         left: 0;
         right: 0;
         width: 100%;
-        background-color: #ff6034;
+        background: linear-gradient(to right,#ffd01e,#ff6034);
 
         .van-nav-bar__title, .van-icon, span {
             color: #fff;
@@ -117,29 +120,25 @@
     }
 
     .app-container {
-        position: fixed;
-        top: 46px;
-        left: 0;
-        right: 0;
-        bottom: 50px;
+        position: relative;
         color: #2c3e50;
         background: #fafafa;
         width: 100%;
+        height: 100%;
         overflow-x: hidden;
-
         .position-div {
             position: absolute;
             left: 0;
             right: 0;
-            top: 0;
+            top: 46px;
+            margin-bottom: 60px;
         }
-
     }
 
 
     .tabbar {
-        -webkit-box-shadow: 0 -1px 3px rgba(0, 0, 0, .3);
-        box-shadow: 0 -1px 3px rgba(0, 0, 0, .3);
+        -webkit-box-shadow: 0 -1px 3px rgba(0, 0, 0, .1);
+        box-shadow: 0 -1px 3px rgba(0, 0, 0, .1);
 
         .van-tabbar-item__icon {
             font-size: 24px;
