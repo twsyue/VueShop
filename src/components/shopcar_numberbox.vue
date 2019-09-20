@@ -49,10 +49,9 @@
 <style lang="scss">
     .numbox {
         height: 28px;
-        display: flex;
         border-radius: 5px;
-        border: 1px solid #c7c7cc;
-        background-color: #c7c7cc;
+        border: 1px solid #eeeeee;
+        background-color: #eeeeee;
         .van-stepper__minus, .van-stepper__plus{background-color: #fff;}
         input[type='number'] {
             height: 28px;
