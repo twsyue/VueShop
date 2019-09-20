@@ -1,13 +1,20 @@
 <template>
   <div class="search">
-    <mt-search
-            v-model="value"
-            cancel-text="取消"
-            placeholder="搜索">
-    </mt-search>
+    <form action="/">
+      <van-search
+              v-model="value"
+              placeholder="请输入搜索关键词"
+              show-action
+
+      />
+    </form>
   </div>
 </template>
 <script>
+  import Vue from 'vue';
+  import { Search } from 'vant';
+
+  Vue.use(Search);
   export default {
     name: "search",
     data() {
@@ -25,7 +32,7 @@
 
 <style lang="scss">
 .search{
-  .mint-searchbar-core {
+  .van-field__control {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

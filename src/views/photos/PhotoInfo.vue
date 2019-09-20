@@ -16,7 +16,10 @@
 </template>
 
 <script>
-    import { Toast  } from 'mint-ui';
+    import Vue from 'vue';
+    import { Toast } from 'vant';
+
+    Vue.use(Toast);
     import comment from "../../components/comment";
     export default {
         name: "photoinfo",
@@ -70,12 +73,13 @@
 <style lang="scss">
     .photoinfo-container {
         padding: 3px;
+        background-color: #fff;
 
         .title {
             font-size: 16px;
             text-align: center;
             margin: 15px 6px;
-            color: #26a2ff;
+            color: #ff6034;
         }
 
         .subtitle {
@@ -103,13 +107,21 @@
                     margin: 5px;
                     img{
                         width: 100%;
-                        box-shadow: 0 0 px #999;
+                        box-shadow: 0 0 2px #999;
                         border-radius: 5px;
                     }
                 }
             }
+            .pswp {
+                position: absolute;
+                width: 100%;
+                left: 0;
+                top: 46px;
+                bottom: 50px;
+            }
 
         }
+
     }
 
 </style>

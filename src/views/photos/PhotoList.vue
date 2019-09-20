@@ -1,17 +1,15 @@
 <template>
     <div>
         <!--顶部滚动导航条-->
-        <div class="my-tab">
-            <div class="my-tabbar">
-                <div class="my-tab-list">
-                    <a :class="['my-tab-item', item.id === selectedId ? 'tab-active' : '']"
-                       v-for="item in tabitems"
-                       :key="item.id"
-                       @click="getPhotolistByCateId(item.id)"
-                    >{{ item.title }}</a>
-                </div>
-            </div>
-        </div>
+        <van-tabs v-model="selectedId" color="#ff6034">
+            <van-tab
+                    v-for="item in tabitems"
+                    :title="item.title"
+                    :key="item.id"
+                    :name="item.id"
+            >
+            </van-tab>
+        </van-tabs>
         <ul class="photolist">
             <router-link v-for="item in list" :key="item.id" :to="'/home/photoinfo/'+ item.id" tag="li">
                 <img :src="item.img_url" alt="">
@@ -26,6 +24,10 @@
 </template>
 
 <script>
+    import Vue from 'vue';
+    import {Tab, Tabs} from 'vant';
+
+    Vue.use(Tab).use(Tabs);
     export default {
         name: "PhotoList",
         data() {
@@ -62,76 +64,24 @@
 
                     })
             },
-        }, components: {}
+        }, components: {},
+        watch: {
+            selectedId: function (newVal) {
+                this.getPhotolistByCateId(newVal)
+            }
+        }
     }
 
 </script>
 
 <style lang="scss" scoped>
-    /* 定义滚动条样式 */
-    ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-        background-color: rgba(240, 240, 240, 1);
-
-    }
-    /*定义滚动条轨道 内阴影+圆角*/
-    ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 0px rgba(240, 240, 240, .5);
-        border-radius: 10px;
-        background-color: rgba(240, 240, 240, .5);
-    }
-    /*定义滑块 内阴影+圆角*/
-    ::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        box-shadow: inset 0 0 0px rgba(240, 240, 240, .5);
-        background-color: rgba(240, 240, 240, .5);
-    }
-    .my-tab {
-        position: relative;
-        background-color: rgba(255, 255, 255, .8);
-        width: 100%;
-        display: flex;
-        border-bottom: 1px solid #eee;
-        box-shadow: 0 0px 6px 1px #eee;
-        overflow-x: scroll;
-
-        .my-tabbar {
-            .my-tab-list {
-                position: relative;
-                box-sizing: border-box;
-                display: flex;
-                flex-flow: row nowrap;
-                flex-shrink: 0;
-                padding: 14px 10px;
-                min-width: 100%;
-
-                .my-tab-item {
-                    display: block !important;
-                    width: 70px;
-                    height: 40px;
-                    line-height: 40px;
-                    text-align: center;
-                    flex-grow: 1;
-                    font-size: 14px;
-                    padding: 0 5px;
-                    color: #2c3e50;
-                }
-
-                .tab-active {
-                    color: #007aff;
-                    font-weight: bold
-                }
-            }
-        }
-    }
-
     .photolist {
         list-style: none;
         margin: 0;
         padding: 10px 10px 0;
 
         li {
+            display: block;
             position: relative;
             background-color: #ccc;
             text-align: center;
@@ -140,6 +90,8 @@
 
             img {
                 width: 100%;
+                display: block;
+
             }
 
             img[lazy=loading] {
@@ -155,13 +107,17 @@
                 background-color: rgba(0, 0, 0, .4);
                 color: #fff;
                 text-align: left;
+                padding: 0 5px;
+                overflow: hidden;
 
                 .info-title {
                     font-size: 14px;
+                    margin: 0;
+                    line-height: 28px;
                 }
 
                 .info-body {
-                    font-size: 13px;
+                    font-size: 14px;
                 }
             }
         }

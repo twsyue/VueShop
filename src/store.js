@@ -22,6 +22,7 @@ export default new Vuex.Store({
         }
       });
 
+
       if(!flag){
         state.car.push(goodsinfo)
       }

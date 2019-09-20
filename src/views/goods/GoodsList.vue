@@ -1,20 +1,5 @@
 <template>
     <div class="goods-list">
-<!--        <router-link class="goodsitem" v-for="item in goodslist" :key="item.id" :to="'/home/goodsinfo/' + item.id" tag="div">-->
-<!--            <img :src="item.img_url" :alt="item.title">-->
-<!--            <h1 class="title">{{ item.title }}</h1>-->
-<!--            <div class="info">-->
-<!--                <p class="price">-->
-<!--                    <span class="now">￥{{ item.sell_price }}</span>-->
-<!--                    <span class="old">￥{{ item.market_price }}</span>-->
-<!--                </p>-->
-<!--                <p class="sell">-->
-<!--                    <span>热卖中</span>-->
-<!--                    <span>剩{{ item.stock_quantity }}件</span>-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </router-link>-->
-
         <div class="goodsitem" v-for="item in goodslist" :key="item.id" @click="goDetail(item.id)">
             <img :src="item.img_url" :alt="item.title">
             <h1 class="title">{{ item.title }}</h1>
@@ -29,12 +14,16 @@
                 </p>
             </div>
         </div>
-        <mt-button type="danger" size="large" @click="getMore()">加载更多</mt-button>
+        <van-button type="danger" size="large" @click="getMore()">加载更多</van-button>
 
     </div>
 </template>
 
 <script>
+    import Vue from 'vue';
+    import { Button } from 'vant';
+
+    Vue.use(Button);
     export default {
         name: "GoodsList",
         data(){

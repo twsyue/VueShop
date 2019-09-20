@@ -1,21 +1,20 @@
 <template>
     <div class="news">
-        <ul class="mui-table-view">
-            <li class="mui-table-view-cell mui-media" v-for="item in newslist" :key="item.id">
-                <router-link :to="'/home/newsinfo/' + item.id">
-                    <img class="mui-media-object mui-pull-left"
-                         :src="item.img_url">
-                    <div class="mui-media-body">
+        <ul class="newslist">
+            <router-link v-for="item in newslist" :key="item.id" :to="'/home/newsinfo/' + item.id">
+                <li class="newsitem">
+                    <div class="imgcov">
+                        <img :src="item.img_url" alt="图片加载失败">
+                    </div>
+                    <div class="infobox">
                         <h1>{{item.title}}</h1>
-                        <p class="mui-ellipsis">
+                        <div class="info">
                             <span>发表时间：{{item.add_time | dateFormat}}</span>
                             <span>点击次数：{{item.click}}</span>
-                        </p>
+                        </div>
                     </div>
-                </router-link>
-
-
-            </li>
+                </li>
+            </router-link>
 
         </ul>
     </div>
@@ -23,23 +22,26 @@
 </template>
 
 <script>
-    import { Toast  } from 'mint-ui';
+    import Vue from 'vue';
+    import {Toast} from 'vant';
+
+    Vue.use(Toast);
     export default {
         name: "NewsList",
-        data(){
-            return{
-                newslist:[]
+        data() {
+            return {
+                newslist: []
             }
         },
-        created(){
+        created() {
             this.getNewsList()
         },
-        methods:{
-            getNewsList(){
-                this.axios.get('api/getnewslist').then(response =>{
-                    if(response.data.status===0){
+        methods: {
+            getNewsList() {
+                this.axios.get('api/getnewslist').then(response => {
+                    if (response.data.status === 0) {
                         this.newslist = response.data.message;
-                    }else {
+                    } else {
                         Toast("获取新闻列表失败");
                     }
                 })
@@ -49,17 +51,47 @@
 </script>
 
 <style lang="scss" scoped>
-.news{
+    .news {
+        .newslist{
+            list-style: none;
+            padding: 10px 5px;
+            .newsitem {
+                border-bottom: 1px solid #c7c7cc;
+                display: flex;
+                justify-content: space-between;
+                padding:10px 5px;
+                background-color: #fff;
 
-    .mui-table-view{
-        h1{font-size:14px;}
-        .mui-ellipsis{
-            font-size:12px;
-            color:#226aff;
-            display: flex;
-            justify-content: space-between;
+                .imgcov {
+                    width: 60px;
+                    height: 60px;
+
+                    img {
+                        width: 60px;
+                        height: 60px;
+                    }
+                }
+                .infobox{
+                    width: 100%;
+                    padding-left: 15px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    h1{ font-size: 14px; color: #242424}
+                    .info {
+                        font-size: 12px;
+                        color: #323232;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                }
+
+
+            }
+
         }
 
+
     }
-}
 </style>

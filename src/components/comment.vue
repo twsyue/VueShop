@@ -3,7 +3,7 @@
         <h3>发表评论</h3>
         <hr>
         <textarea placeholder="请输入要BB的内容（最多吐槽120字）" maxlength="120" v-model="msg"></textarea>
-        <mt-button type="primary" size="large" @click="postComment()">发表评论</mt-button>
+        <van-button type="info" size="large" @click="postComment()">发表评论</van-button>
         <div class="cmt-list">
             <div class="cmt-item" v-for="(item,i) in comments" :key="i">
                 <div class="cmt-title">第 {{i+1}} 楼&nbsp;&nbsp;用户：{{item.user_name}}&nbsp;&nbsp;发表时间：{{item.add_time |
@@ -12,12 +12,15 @@
                 <div class="cmt-body">{{item.content === 'undefined' ? '此用户很懒什么都没说' : item.content}}</div>
             </div>
         </div>
-        <mt-button type="danger" size="large" @click="getMore()">加载评论</mt-button>
+        <van-button type="danger" size="large" @click="getMore()">加载评论</van-button>
     </div>
 </template>
 
 <script>
-    import {Toast} from 'mint-ui';
+    import Vue from 'vue';
+    import { Button,Toast } from 'vant';
+
+    Vue.use(Button).use(Toast);
 
     export default {
         name: "comment",
@@ -82,6 +85,7 @@
 
 <style lang="scss">
     .comment-box {
+        padding: 5px;
         h3 {
             font-size: 18px;
         }
@@ -89,7 +93,8 @@
         textarea {
             font-size: 14px;
             height: 85px;
-            margin: 0;
+            width: 96%;
+            margin-left:1%;
         }
 
         .cmt-list {

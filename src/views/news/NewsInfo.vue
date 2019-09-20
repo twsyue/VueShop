@@ -14,7 +14,9 @@
 </template>
 
 <script>
-    import { Toast  } from 'mint-ui';
+    import Vue from 'vue';
+    import { Toast } from 'vant';
+    Vue.use(Toast);
     import comment from "../../components/comment";
     export default {
         name: "newsinfo",
@@ -49,6 +51,7 @@
 <style lang="scss">
     .newsinfo-container {
         width: 100%;
+        background-color: #fff;
 
         .title {
             font-size: 16px;

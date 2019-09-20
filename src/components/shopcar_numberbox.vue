@@ -1,38 +1,66 @@
 <template>
-    <div class="mui-numbox" data-numbox-min='1' >
-        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
-        <input id="test" class="mui-input-numbox" type="number" :value="initcount"
-               @change="CountChange" ref="numbox" readonly/>
-        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+    <div class="numbox">
+        <van-stepper v-model="value" integer @change="CountChange">
+        </van-stepper>
     </div>
+
 </template>
 
 <script>
-    import mui from '../assets/lib/mui/js/mui.js';
+    import Vue from 'vue';
+    import {Stepper} from 'vant';
+
+    Vue.use(Stepper);
 
     export default {
-        mounted(){//引入的是在mian.js所以加上this
-            mui('.mui-numbox').numbox();
+        data(){
+          return{
+              value:''
+          }
+        },
+        mounted() {
+        },
+        created(){
+            this.value =this.initcount
         },
         methods: {
-            CountChange(){//文本框数据被修改的时候
-                //console.log(this.$refs.numbox.value)
+            CountChange(value) {//文本框数据被修改的时候
+                //console.log(value)
                 //todo 这里需要限制最大数量
-                this.$store.commit('UpdateGoodsInfo',{
+                this.$store.commit('UpdateGoodsInfo', {
                     id: this.goodsid,
-                    count: this.$refs.numbox.value
+                    count: parseInt(value)
                 })
 
 
             }
         },
-        props:["initcount", "goodsid"],
+        props: ["initcount", "goodsid"],
         watch: {
+            "initcount":function (newVal) {
+                this.value =newVal
+                //console.log(newVal)
 
+            }
         }
     }
 </script>
 
-<style lang="scss" scoped>
-.mui-numbox{height: 25px;}
+<style lang="scss">
+    .numbox {
+        height: 28px;
+        display: inline-block;
+        border-radius: 5px;
+        border: 1px solid #c7c7cc;
+        background-color: #c7c7cc;
+        .van-stepper__minus, .van-stepper__plus{background-color: #fff;}
+        input[type='number'] {
+            height: 28px;
+            padding: 0;
+            margin: 0 1px;
+            background-color: #fff;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+    }
 </style>
