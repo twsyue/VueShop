@@ -2,13 +2,13 @@
     <div id="app">
         <van-nav-bar title="VD科技" class="header">
             <van-icon name="arrow-left" slot="left" @click="goBack" v-show="flag"/>
+            <span slot="right" @click="showtips" v-show="isshopcar">管理</span>
         </van-nav-bar>
         <div class="app-container">
             <transition :name="transitionName">
                 <router-view class="position-div"/>
             </transition>
         </div>
-
         <van-tabbar route class="tabbar">
             <van-tabbar-item
                     replace
@@ -43,32 +43,44 @@
 </template>
 <script>
     import Vue from 'vue';
-    import {NavBar, Icon, Tabbar, TabbarItem} from 'vant';
+    import {NavBar, Icon, Tabbar, TabbarItem, Dialog} from 'vant';
 
-    Vue.use(Tabbar).use(TabbarItem).use(NavBar).use(Icon);
+    Vue.use(Tabbar).use(TabbarItem).use(NavBar).use(Icon).use(Dialog);
     export default {
         data() {
             return {
                 flag: false,
+                isshopcar: false,
                 transitionName: ''
             }
         },
         created() {
             this.flag = this.$route.path === '/home' ? false : true;
+            this.isshopcar = this.$route.path === '/shopcar' ? false : true;
         },
         components: {},
         methods: {
             goBack() {
                 this.$router.go(-1);
 
-            }
+            },
+            showtips(){
+              this.$dialog.alert({
+                message: '向左滑动商品卡片删除商品'
+              });
+          }
         },
         watch: {
             '$route.path': function (newVal) {
                 if (newVal === '/home') {
-                    this.flag = false
+                    this.flag = false;
+                    this.isshopcar = false
+                } else if (newVal === '/shopcar') {
+                    this.isshopcar = true;
+                    this.flag = true;
                 } else {
-                    this.flag = true
+                    this.flag = true;
+                    this.isshopcar = false
                 }
 
             },
@@ -99,7 +111,7 @@
         width: 100%;
         background-color: #ff6034;
 
-        .van-nav-bar__title, .van-icon {
+        .van-nav-bar__title, .van-icon, span {
             color: #fff;
         }
     }
@@ -120,7 +132,6 @@
             left: 0;
             right: 0;
             top: 0;
-            bottom: 0;
         }
 
     }
@@ -204,4 +215,5 @@
         opacity: 0;
         transform: translate3d(-100%, 0, 0);
     }
+
 </style>

@@ -14,6 +14,11 @@
                         购买数量：
                         <numbox @getcount="getSelectCount" :max="goodsinfo.stock_quantity"></numbox>
                     </p>
+                <div class="btnbox">
+
+                    <van-goods-action-button type="warning" @click="addToShopCar()" text="加入购物车"/>
+                    <van-goods-action-button type="danger" text="立即购买"/>
+                </div>
             </div>
         </div>
         <div class="shop-card">
@@ -29,27 +34,6 @@
                 <van-button type="danger" size="large" plain @click="goComment(id)">商品评论</van-button>
             </div>
         </div>
-        <van-goods-action>
-            <router-link to="/home">
-                <van-goods-action-icon text="首页">
-                    <div slot="icon" class="iconfont icon-shouye"></div>
-                </van-goods-action-icon>
-            </router-link>
-            <router-link to="/member">
-                <van-goods-action-icon text="会员">
-                    <div slot="icon" class="iconfont icon-huiyuan"></div>
-                </van-goods-action-icon>
-            </router-link>
-            <router-link to="/shopcar">
-                <van-goods-action-icon text="购物车">
-                    <div slot="icon" class="van-icon iconfont icon-gouwu">
-                        <div class="van-info">{{$store.getters.getAllCount}}</div>
-                    </div>
-                </van-goods-action-icon>
-            </router-link>
-            <van-goods-action-button type="warning" @click="addToShopCar()" text="加入购物车"/>
-            <van-goods-action-button type="danger" text="立即购买"/>
-        </van-goods-action>
 
     </div>
 </template>
@@ -202,13 +186,9 @@
         }
 
         /*.ball{ position:absolute; z-index:99 ; top:380px; left:146px;width: 20px;height: 20px; border-radius: 10px; background: #ff5053; opacity: 1}*/
-        .van-goods-action {
-            z-index: 100;
+        .btnbox {
+            display: flex;
 
-            .iconfont {
-                font-size: 18px;
-
-            }
         }
     }
 </style>

@@ -69,25 +69,29 @@
             justify-content: space-between;
             width: 49%;
             min-height: 293px;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 8px #ccc;
+            border-radius: 5px;
+            border: 1px solid #c7c7cc;
+            box-shadow: 0 0 8px #c7c7cc;
             margin-bottom: 7px;
 
             img {
                 width: 100%;
+                border-radius: 5px 5px 0 0;
             }
 
             .title {
                 font-size: 14px;
+                padding: 5px;
             }
 
             .info {
+                border-radius: 0 0 3px 3px;
                 p {
                     margin: 0;
                     padding: 5px;
                 }
 
-                background-color: #d6d6d6;
+                background-color: #f6f6f6;
                 margin: 2px;
 
                 .price {

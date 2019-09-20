@@ -2,27 +2,39 @@
     <div class="shopcar">
         <div class="goodslist">
             <div class="shop-card" v-for="(item,i) in goodslist" :key="item.id">
-                <div class="card-content">
-                    <div class="card-box">
-                        <van-switch
-                                v-model="$store.getters.getGoodsSelected[item.id]"
-                                @change="selectedChanged(item.id,$store.getters.getGoodsSelected[item.id])"
-                                size="24px"
-                        />
-                    </div>
-                    <div>
-                        <img :src="item.thumb_path" alt="图片加载失败！">
-                    </div>
 
-                    <div class="info">
-                        <h1>{{ item.title }}</h1>
-                        <p class="box">
-                            <span class="price">￥{{ item.sell_price }}</span>
-                            <numbox :initcount="$store.getters.getGoodsCount[item.id]" :goodsid="item.id"></numbox>
-                            <a href="#" @click.prevent="del(item.id, i)">删除</a>
-                        </p>
-                    </div>
-                </div>
+                <van-swipe-cell>
+                    <template slot="default">
+                        <div class="card-content">
+
+                            <div class="card-box">
+                                <van-switch
+                                        v-model="$store.getters.getGoodsSelected[item.id]"
+                                        @change="selectedChanged(item.id,$store.getters.getGoodsSelected[item.id])"
+                                        size="20px"
+                                        active-color="#ff6034"
+                                ></van-switch>
+                            </div>
+                            <div>
+                                <img :src="item.thumb_path" alt="图片加载失败！">
+                            </div>
+
+                            <div class="info">
+                                <h1>{{ item.title }}</h1>
+                                <p class="box">
+                                    <span class="price">￥{{ item.sell_price }}</span>
+                                    <numbox :initcount="$store.getters.getGoodsCount[item.id]"
+                                            :goodsid="item.id"></numbox>
+                                </p>
+                            </div>
+                        </div>
+                    </template>
+                    <template slot="right">
+                        <van-button square type="danger" @click.prevent="del(item.id, i)" text="删除"/>
+                    </template>
+                </van-swipe-cell>
+
+
             </div>
         </div>
 
@@ -31,8 +43,9 @@
                         button-text="去结算"
         >
             <div class="tips">
-                已勾选商品 <span class="red">{{ $store.getters.getGoodsCountAmount.count }}</span> 件
+                已选中商品 <span class="red">{{ $store.getters.getGoodsCountAmount.count }}</span> 件
             </div>
+
         </van-submit-bar>
 
 
@@ -41,9 +54,15 @@
 <script>
     import numbox from "../components/shopcar_numberbox";
     import Vue from 'vue';
-    import {SubmitBar, Switch} from 'vant';
+    import {SubmitBar, Switch, ActionSheet} from 'vant';
+    import { SwipeCell } from 'vant';
+    import { Cell, CellGroup } from 'vant';
 
-    Vue.use(SubmitBar).use(Switch);
+    Vue.use(Cell).use(CellGroup);
+
+    Vue.use(SwipeCell);
+
+    Vue.use(SubmitBar).use(Switch).use(ActionSheet);
     export default {
         name: "shopcar",
         data() {
@@ -91,21 +110,22 @@
 
 <style lang="scss">
     .shopcar {
-        background-color: #eee;
-        overflow: hidden;
-        padding-bottom: 60px;
-
         .goodslist {
+            padding-bottom: 60px;
+
             .shop-card {
                 font-size: 14px;
                 position: relative;
                 overflow: hidden;
                 margin: 10px;
-                border-radius: 2px;
+                border-radius: 5px;
                 background-color: white;
                 background-clip: padding-box;
                 -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
                 box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+                .van-button--danger{
+                    height: 100%;
+                }
             }
 
             .card-content {
@@ -126,6 +146,7 @@
 
                 .info {
                     display: flex;
+                    width: 100%;
                     flex-direction: column;
                     justify-content: space-between;
 
@@ -133,6 +154,7 @@
                         display: flex;
                         justify-content: space-between;
                         margin: 5px 0;
+                        line-height: 28px;
                     }
 
                     .price {
