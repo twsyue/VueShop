@@ -10,7 +10,6 @@
 - axios
 - Vuex
 - Vant移动端组件库
-- MUI 前端框架
 - Vue preview plugin
  
 ##功能
