@@ -17,7 +17,7 @@
                 <div class="btnbox">
 
                     <van-goods-action-button type="warning" @click="addToShopCar()" text="加入购物车"/>
-                    <van-goods-action-button type="danger" text="立即购买"/>
+                    <van-goods-action-button type="danger" @click="asshow = true" text="立即购买"/>
                 </div>
             </div>
         </div>
@@ -34,6 +34,12 @@
                 <van-button type="danger" size="large" plain @click="goComment(id)">商品评论</van-button>
             </div>
         </div>
+        <van-action-sheet
+                v-model="asshow"
+                :actions="actions"
+                cancel-text="取消"
+                @cancel="onCancel"
+        />
 
     </div>
 </template>
@@ -46,14 +52,18 @@
         GoodsAction,
         GoodsActionIcon,
         GoodsActionButton,
-        Button
+        Button,
+        Toast,
+        ActionSheet
     } from 'vant';
 
     Vue
         .use(GoodsAction)
         .use(GoodsActionIcon)
         .use(GoodsActionButton)
-        .use(Button);
+        .use(Button)
+        .use(Toast)
+        .use(ActionSheet);
 
     export default {
         name: "GoodsInfo",
@@ -63,6 +73,12 @@
                 selectCount: 1,
                 lunbotu: [],
                 goodsinfo: [],
+                asshow: false,
+                actions: [
+                    {name: '确认订单信息', color: '#ff8917'},
+                    {loading: true},
+                    {name: '提交订单中请稍后', color: '#666'}
+                ]
 
             }
         },
@@ -108,11 +124,15 @@
                     price: this.goodsinfo.sell_price,
                     selected: true
                 };
-                this.$store.commit('AddToCar', goodsinfo)
+                this.$store.commit('AddToCar', goodsinfo);
+                Toast.success('已加入购物车');
 
             },
             getSelectCount(count) {
                 this.selectCount = count;
+            },
+            onCancel() {
+                this.asshow = false
             }
 
         }

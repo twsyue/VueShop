@@ -38,15 +38,21 @@
             </div>
         </div>
 
-        <van-submit-bar class="jiesuan"
-                        :price="$store.getters.getGoodsCountAmount.amount"
-                        button-text="去结算"
-        >
+        <div class="jiesuan">
             <div class="tips">
                 已选中商品 <span class="red">{{ $store.getters.getGoodsCountAmount.count }}</span> 件
             </div>
-
-        </van-submit-bar>
+            <div class="count">
+                合计： <span class="red">￥{{$store.getters.getGoodsCountAmount.amount }}</span> 件
+            </div>
+            <van-button round color="linear-gradient(to right,#ff8917,#ff6034)" @click="asshow = true">结算</van-button>
+        </div>
+        <van-action-sheet
+                v-model="asshow"
+                :actions="actions"
+                cancel-text="取消"
+                @cancel="onCancel"
+        />
 
 
     </div>
@@ -54,20 +60,25 @@
 <script>
     import numbox from "../components/shopcar_numberbox";
     import Vue from 'vue';
-    import {SubmitBar, Switch, ActionSheet} from 'vant';
-    import { SwipeCell } from 'vant';
-    import { Cell, CellGroup } from 'vant';
+    import {SubmitBar, Switch, ActionSheet, SwipeCell, Cell, CellGroup} from 'vant';
 
-    Vue.use(Cell).use(CellGroup);
-
-    Vue.use(SwipeCell);
-
-    Vue.use(SubmitBar).use(Switch).use(ActionSheet);
+    Vue.use(Cell)
+        .use(CellGroup)
+        .use(SwipeCell)
+        .use(SubmitBar)
+        .use(Switch)
+        .use(ActionSheet);
     export default {
         name: "shopcar",
         data() {
             return {
-                goodslist: []
+                goodslist: [],
+                asshow: false,
+                actions: [
+                    {name: '确认订单信息', color: '#ff8917'},
+                    {loading: true},
+                    {name: '提交订单中请稍后', color: '#666'}
+                ]
 
             }
         },
@@ -98,7 +109,11 @@
             },
             selectedChanged(id, value) {
                 this.$store.commit("UpdateGoodsSelected", {id, selected: value});
+            },
+            onCancel() {
+                this.asshow = false
             }
+
         },
         components: {
             numbox
@@ -111,7 +126,7 @@
 <style lang="scss">
     .shopcar {
         .goodslist {
-            padding-bottom: 60px;
+            padding-bottom: 40px;
 
             .shop-card {
                 font-size: 14px;
@@ -121,9 +136,10 @@
                 border-radius: 5px;
                 background-color: white;
                 background-clip: padding-box;
-                -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
-                box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
-                .van-button--danger{
+                -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+
+                .van-button--danger {
                     height: 100%;
                 }
             }
@@ -167,17 +183,40 @@
         }
 
         .jiesuan {
-            bottom: 52px;
-            border-bottom: 2px solid #c7c7cc;
+            position: fixed;
+            bottom: 51px;
+            left: 0;
+            right: 0;
+            padding: 0 15px;
+            height: 52px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #efeff4;
 
             .tips {
-                padding-left: 5px;
+                width: 35%;
+                line-height: 52px;
+                font-size: 13px;
+                color: #666;
+            }
 
-                .red {
-                    color: #ff5053;
-                    font-weight: bold;
-                }
+            .count {
+                width: 35%;
+                line-height: 52px;
+                text-align: right;
+            }
 
+            .red {
+                color: #ff5053;
+                font-weight: bold;
+            }
+
+            .van-button {
+                width: 25%;
+                padding: 0 25px;
+                font-size: 16px;
+                margin-top: 5px;
             }
         }
 
